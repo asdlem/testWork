@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.myWork.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="User">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="useraccount" column="userAccount" jdbcType="VARCHAR"/>
+            <result property="userpassword" column="userPassword" jdbcType="VARCHAR"/>
+            <result property="unionid" column="unionId" jdbcType="VARCHAR"/>
+            <result property="mpopenid" column="mpOpenId" jdbcType="VARCHAR"/>
+            <result property="username" column="userName" jdbcType="VARCHAR"/>
+            <result property="useravatar" column="userAvatar" jdbcType="VARCHAR"/>
+            <result property="userprofile" column="userProfile" jdbcType="VARCHAR"/>
+            <result property="userrole" column="userRole" jdbcType="VARCHAR"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isdelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,userAccount,userPassword,
+        unionId,mpOpenId,userName,
+        userAvatar,userProfile,userRole,
+        createTime,updateTime,isDelete
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where  id = #{id,jdbcType=BIGINT} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from user
+        where  id = #{id,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="User" useGeneratedKeys="true">
+        insert into user
+        ( id,userAccount,userPassword
+        ,unionId,mpOpenId,userName
+        ,userAvatar,userProfile,userRole
+        ,createTime,updateTime,isDelete
+        )
+        values (#{id,jdbcType=BIGINT},#{useraccount,jdbcType=VARCHAR},#{userpassword,jdbcType=VARCHAR}
+        ,#{unionid,jdbcType=VARCHAR},#{mpopenid,jdbcType=VARCHAR},#{username,jdbcType=VARCHAR}
+        ,#{useravatar,jdbcType=VARCHAR},#{userprofile,jdbcType=VARCHAR},#{userrole,jdbcType=VARCHAR}
+        ,#{createtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{isdelete,jdbcType=TINYINT}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="User" useGeneratedKeys="true">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="useraccount != null">userAccount,</if>
+                <if test="userpassword != null">userPassword,</if>
+                <if test="unionid != null">unionId,</if>
+                <if test="mpopenid != null">mpOpenId,</if>
+                <if test="username != null">userName,</if>
+                <if test="useravatar != null">userAvatar,</if>
+                <if test="userprofile != null">userProfile,</if>
+                <if test="userrole != null">userRole,</if>
+                <if test="createtime != null">createTime,</if>
+                <if test="updatetime != null">updateTime,</if>
+                <if test="isdelete != null">isDelete,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="useraccount != null">#{useraccount,jdbcType=VARCHAR},</if>
+                <if test="userpassword != null">#{userpassword,jdbcType=VARCHAR},</if>
+                <if test="unionid != null">#{unionid,jdbcType=VARCHAR},</if>
+                <if test="mpopenid != null">#{mpopenid,jdbcType=VARCHAR},</if>
+                <if test="username != null">#{username,jdbcType=VARCHAR},</if>
+                <if test="useravatar != null">#{useravatar,jdbcType=VARCHAR},</if>
+                <if test="userprofile != null">#{userprofile,jdbcType=VARCHAR},</if>
+                <if test="userrole != null">#{userrole,jdbcType=VARCHAR},</if>
+                <if test="createtime != null">#{createtime,jdbcType=TIMESTAMP},</if>
+                <if test="updatetime != null">#{updatetime,jdbcType=TIMESTAMP},</if>
+                <if test="isdelete != null">#{isdelete,jdbcType=TINYINT},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="User">
+        update user
+        <set>
+                <if test="useraccount != null">
+                    userAccount = #{useraccount,jdbcType=VARCHAR},
+                </if>
+                <if test="userpassword != null">
+                    userPassword = #{userpassword,jdbcType=VARCHAR},
+                </if>
+                <if test="unionid != null">
+                    unionId = #{unionid,jdbcType=VARCHAR},
+                </if>
+                <if test="mpopenid != null">
+                    mpOpenId = #{mpopenid,jdbcType=VARCHAR},
+                </if>
+                <if test="username != null">
+                    userName = #{username,jdbcType=VARCHAR},
+                </if>
+                <if test="useravatar != null">
+                    userAvatar = #{useravatar,jdbcType=VARCHAR},
+                </if>
+                <if test="userprofile != null">
+                    userProfile = #{userprofile,jdbcType=VARCHAR},
+                </if>
+                <if test="userrole != null">
+                    userRole = #{userrole,jdbcType=VARCHAR},
+                </if>
+                <if test="createtime != null">
+                    createTime = #{createtime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updatetime != null">
+                    updateTime = #{updatetime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="isdelete != null">
+                    isDelete = #{isdelete,jdbcType=TINYINT},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="User">
+        update user
+        set 
+            userAccount =  #{useraccount,jdbcType=VARCHAR},
+            userPassword =  #{userpassword,jdbcType=VARCHAR},
+            unionId =  #{unionid,jdbcType=VARCHAR},
+            mpOpenId =  #{mpopenid,jdbcType=VARCHAR},
+            userName =  #{username,jdbcType=VARCHAR},
+            userAvatar =  #{useravatar,jdbcType=VARCHAR},
+            userProfile =  #{userprofile,jdbcType=VARCHAR},
+            userRole =  #{userrole,jdbcType=VARCHAR},
+            createTime =  #{createtime,jdbcType=TIMESTAMP},
+            updateTime =  #{updatetime,jdbcType=TIMESTAMP},
+            isDelete =  #{isdelete,jdbcType=TINYINT}
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+</mapper>

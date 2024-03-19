@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fc.myWork.mapper.StoreMapper">
+
+    <resultMap id="BaseResultMap" type="Store">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="phone" column="phone" jdbcType="VARCHAR"/>
+            <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+            <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,address,
+        phone,created_time,updated_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from store
+        where  id = #{id,jdbcType=BIGINT} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from store
+        where  id = #{id,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="Store" useGeneratedKeys="true">
+        insert into store
+        ( id,name,address
+        ,phone,created_time,updated_time
+        )
+        values (#{id,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR}
+        ,#{phone,jdbcType=VARCHAR},#{createdTime,jdbcType=TIMESTAMP},#{updatedTime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="Store" useGeneratedKeys="true">
+        insert into store
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="name != null">name,</if>
+                <if test="address != null">address,</if>
+                <if test="phone != null">phone,</if>
+                <if test="createdTime != null">created_time,</if>
+                <if test="updatedTime != null">updated_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+                <if test="address != null">#{address,jdbcType=VARCHAR},</if>
+                <if test="phone != null">#{phone,jdbcType=VARCHAR},</if>
+                <if test="createdTime != null">#{createdTime,jdbcType=TIMESTAMP},</if>
+                <if test="updatedTime != null">#{updatedTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="Store">
+        update store
+        <set>
+                <if test="name != null">
+                    name = #{name,jdbcType=VARCHAR},
+                </if>
+                <if test="address != null">
+                    address = #{address,jdbcType=VARCHAR},
+                </if>
+                <if test="phone != null">
+                    phone = #{phone,jdbcType=VARCHAR},
+                </if>
+                <if test="createdTime != null">
+                    created_time = #{createdTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="updatedTime != null">
+                    updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="Store">
+        update store
+        set 
+            name =  #{name,jdbcType=VARCHAR},
+            address =  #{address,jdbcType=VARCHAR},
+            phone =  #{phone,jdbcType=VARCHAR},
+            created_time =  #{createdTime,jdbcType=TIMESTAMP},
+            updated_time =  #{updatedTime,jdbcType=TIMESTAMP}
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+</mapper>
